@@ -2,22 +2,28 @@ package tools;
 
 public class Deal {
 
-    private int height;
+    private int length;
     private int width;
     private int cost;
 
-    public Deal(int height, int width, int cost) {
-        this.height = height;
+    /**
+     * Создание объекта сделки
+     * @param length Длина комнаты
+     * @param width Ширина комнаты
+     * @param cost Оценка стоимости продажи комнаты
+     */
+    public Deal(int length, int width, int cost) {
+        this.length = length;
         this.width = width;
         this.cost = cost;
     }
 
     public int getHeight() {
-        return height;
+        return length;
     }
 
     public void setHeight(int height) {
-        this.height = height;
+        this.length = height;
     }
 
     public int getWidth() {

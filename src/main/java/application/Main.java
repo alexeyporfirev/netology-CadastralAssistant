@@ -12,19 +12,26 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите число генерируемых сделок: ");
+        System.out.println("Input number of the generated deals: ");
         int numberOfDeals = Integer.parseInt(scanner.nextLine());
-        System.out.println("Введите цену за квадратный метр: ");
+        System.out.println("Input cost per meter: ");
         int pricePerMeter = Integer.parseInt(scanner.nextLine());
 
+        // генерируем набор сделок
         List<Deal> deals = DealGenerator.generateDeals(numberOfDeals);
 
-        Function<List<Deal>, List<Deal>> function = data -> data.stream()
+        //создаем ф-цию через функциональный интерфейс, которая выбирает только честные сделки
+        Function<List<Deal>, List<Deal>> cadastralAssistant = data -> data.stream()
                 .filter(el -> el.getCost() < el.getHeight() * el.getWidth() * pricePerMeter)
                 .collect(Collectors.toList());
-        List<Deal> correctedDeals = function.apply(deals);
+
+        // Применяем нашу вспомогательную ф-цию для выбора
+        List<Deal> correctedDeals = cadastralAssistant.apply(deals);
+
+        // выводим на экран только честные сделки
+        System.out.println("Fair deals:");
         for(Deal deal : correctedDeals) {
-            System.out.printf("Width: %d, height: %d, cost: %d\n", deal.getWidth(), deal.getHeight(), deal.getCost());
+            System.out.printf("Width: %d, length: %d, cost: %d\n", deal.getWidth(), deal.getHeight(), deal.getCost());
         }
     }
 }
